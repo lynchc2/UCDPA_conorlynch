@@ -5,6 +5,5 @@ data = pd.read_csv("C:/Users/lynchc2/OneDrive - Paddy Power Betfair/Conor Lynch/
 
 print (data.describe())
 print (data.head())
-
 print (data.isna().sum())
 
