@@ -7,3 +7,6 @@ print (data.describe())
 print (data.head())
 print (data.isna().sum())
 
+#Drop duplicate rows
+data.drop_duplicates(inplace= True)
+
