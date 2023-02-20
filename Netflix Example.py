@@ -18,11 +18,11 @@ df['title'].replace(np.nan, 'No Data',inplace  = True)
 df.drop_duplicates(inplace= True)
 print (df.isna().sum().sort_values(ascending=False))
 
-#Drop 1st column which is just an id
-df=df.drop('id',axis=1)
+#Drop tmdb column as unsure what it is
+df=df.drop('tmdb_score',axis=1)
 print (df.head())
 
-#Regex and function to find patterns
+#Regex and function to find patterns, update to sentiment analysis??
 regex = (r'\d+')
 regex1 = (r'Cowboy|cowboy')
 regex2 = (r'Football|football')
@@ -47,8 +47,8 @@ a = (cowboy, football)
 print (a)
 
 #Iterators
-titles = df['title']
-myiter = iter(titles)
+titles1 = df['title']
+myiter = iter(titles1)
 
 print (next(myiter))
 print (next(myiter))
@@ -56,7 +56,11 @@ print (next(myiter))
 
 #Merge Dataframe
 
+merge_titles = pd.DataFrame(df['id'])
+merge_descriptions = pd.DataFrame(df[['id','title','type']])
 
+new_df = merge_titles.merge(merge_descriptions, on='id')
+print (new_df.head())
 
 
 
