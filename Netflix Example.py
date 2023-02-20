@@ -24,13 +24,42 @@ print (df.head())
 
 #Regex and function to find patterns
 regex = (r'\d+')
-title_list = df['description'].astype(str)
+regex1 = (r'Cowboy|cowboy')
+regex2 = (r'Football|football')
+description_list = df['description'].astype(str)
 
-for i in title_list:
-    #Find all matches of regex in each title
-    cowboy = re.findall(regex, i)
+for i in description_list:
+    #Find all matches of regex in each description
+    cowboy = re.findall(regex1, i)
+    football = re.findall(regex2, i)
 
-    print ("Numbers contrained in this description{}".format(cowboy))
+    if cowboy:
+        print ('Cowboy Film')
+
+    if football:
+        print ('Football Film')
+
+    else:
+        print ('Other')
+
+a = (cowboy, football)
+
+print (a)
+
+#Iterators
+titles = df['title']
+myiter = iter(titles)
+
+print (next(myiter))
+print (next(myiter))
+print (next(myiter))
+
+#Merge Dataframe
+
+
+
+
+
 
 
 
