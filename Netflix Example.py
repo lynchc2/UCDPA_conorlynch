@@ -56,10 +56,10 @@ print (next(myiter))
 
 #Merge Dataframe
 
-merge_titles = pd.DataFrame(df['id'])
-merge_descriptions = pd.DataFrame(df[['id','title','type']])
+titles = pd.DataFrame(df['id'])
+descriptions = pd.DataFrame(df[['id','title','type']])
 
-new_df = merge_titles.merge(merge_descriptions, on='id')
+new_df = titles.merge(descriptions, on='id')
 print (new_df.head())
 
 
