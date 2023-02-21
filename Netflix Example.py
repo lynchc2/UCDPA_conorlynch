@@ -62,7 +62,26 @@ descriptions = pd.DataFrame(df[['id','title','type']])
 new_df = titles.merge(descriptions, on='id')
 print (new_df.head())
 
+#NumPy picking out all PG films
 
+arr = np.array(df['age_certification'])
+print (np.where(arr == 'PG'))
+
+arr2 = np.array(df['imdb_score'])
+arr3 = np.array(df['title'])
+filter_arr = []
+
+for i in arr2:
+    if i > 9:
+        filter_arr.append(True)
+    else:
+        filter_arr.append(False)
+
+new_arr = arr3[filter_arr]
+print (filter_arr)
+print (new_arr)
+
+# Dictionaries and Lists
 
 
 
