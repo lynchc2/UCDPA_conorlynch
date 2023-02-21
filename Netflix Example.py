@@ -83,7 +83,11 @@ print (new_arr)
 
 # Dictionaries and Lists
 
+list = df['title']
+print (list[27])
 
+newlist = [x for x in list if "world" in x]
+print (newlist)
 
 
 
