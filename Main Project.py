@@ -74,7 +74,7 @@ plot_columns2 = data[['lead_time','avg_price_per_room','arrival_date','no_of_pre
 #fig.update_layout(showlegend=False)
 #fig.show()
 
-
+# Convert and Scale Data
 scaler = LabelEncoder()
 for column in ['type_of_meal_plan', 'room_type_reserved','market_segment_type', 'booking_status']:
     data[column] = scaler.fit_transform(data[column])
@@ -84,38 +84,52 @@ X = data.drop(['booking_status'],axis= 1)
 
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
-
 X = pd.DataFrame(X)
-print (X.head())
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size= 0.8)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.3, random_state=21, stratify=y)
 
-#XGB Classifier
-xgb = XGBClassifier(n_estimators=100, max_depth=15)
-xgb.fit(X_train, y_train)
-y_pred = xgb.predict(X_test)
-
-p_score = precision_score(y_test, y_pred)
-print (p_score)
-acc_score = accuracy_score(y_test, y_pred)
-print (acc_score)
-
-#Random Forest Classifier
-rfc = RandomForestClassifier(n_estimators=500, max_depth=None, min_samples_leaf=5, warm_start=True, bootstrap=True)
-rfc.fit(X_train, y_train)
-y_pred = rfc.predict(X_test)
-
-p_score = precision_score(y_test, y_pred)
-print (p_score)
-acc_score = accuracy_score(y_test, y_pred)
-print (acc_score)
-
-#Decision Tree Clasifier
-dcc = DecisionTreeClassifier(max_depth=20, min_samples_leaf=5)
+# Decision Tree Classifier
+dcc = DecisionTreeClassifier()
 dcc.fit(X_train, y_train)
 y_pred = dcc.predict(X_test)
 
 p_score = precision_score(y_test, y_pred)
-print (p_score)
+print("Precision Score:", p_score)
 acc_score = accuracy_score(y_test, y_pred)
-print (acc_score)
+print("Accuracy Score:", acc_score)
+c_matrix = confusion_matrix(y_test, y_pred)
+print (c_matrix)
+
+# Random Forest Classifier
+rfc = RandomForestClassifier()
+rfc.fit(X_train, y_train)
+y_pred = rfc.predict(X_test)
+
+p_score = precision_score(y_test, y_pred)
+print ("Precision Score:", p_score)
+acc_score = accuracy_score(y_test, y_pred)
+print ("Accuracy Score:", acc_score)
+c_matrix = confusion_matrix(y_test, y_pred)
+print (c_matrix)
+
+# XGB Classifier
+xgb = XGBClassifier()
+xgb.fit(X_train, y_train)
+y_pred = xgb.predict(X_test)
+
+p_score = precision_score(y_test, y_pred)  # number of true positives over all positive predictions, high means low false +ve rate
+print ("Precision Score:", p_score)
+acc_score = accuracy_score(y_test, y_pred)
+print ("Accuracy Score:", acc_score)
+c_matrix = confusion_matrix(y_test, y_pred)
+print (c_matrix)
+# classification report to summarise multiple accuracy metrics
+
+#Feature Importance
+sns.set_style('whitegrid')
+sns.set_context('poster')
+sns.set_palette('colorblind')
+sns.set(rc={'figure.figsize':(12,8)})
+sns.barplot(x=rfc.feature_importances_, y=X.columns)
+plt.title('FEATURE IMPORTANCE')
+plt.show()
