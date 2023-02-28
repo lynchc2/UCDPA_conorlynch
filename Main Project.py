@@ -15,7 +15,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
-from sklearn.metrics import precision_score, recall_score, f1_score, classification_report, confusion_matrix
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report, confusion_matrix, accuracy_score
 
 
 data = pd.read_csv("C:/Users/lynchc2/OneDrive - Paddy Power Betfair/Conor Lynch/UCD Course/Hotel Reservations.csv")
@@ -90,10 +90,32 @@ print (X.head())
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size= 0.8)
 
+#XGB Classifier
 xgb = XGBClassifier(n_estimators=100, max_depth=15)
 xgb.fit(X_train, y_train)
-
 y_pred = xgb.predict(X_test)
 
 p_score = precision_score(y_test, y_pred)
 print (p_score)
+acc_score = accuracy_score(y_test, y_pred)
+print (acc_score)
+
+#Random Forest Classifier
+rfc = RandomForestClassifier(n_estimators=500, max_depth=None, min_samples_leaf=5, warm_start=True, bootstrap=True)
+rfc.fit(X_train, y_train)
+y_pred = rfc.predict(X_test)
+
+p_score = precision_score(y_test, y_pred)
+print (p_score)
+acc_score = accuracy_score(y_test, y_pred)
+print (acc_score)
+
+#Decision Tree Clasifier
+dcc = DecisionTreeClassifier(max_depth=20, min_samples_leaf=5)
+dcc.fit(X_train, y_train)
+y_pred = dcc.predict(X_test)
+
+p_score = precision_score(y_test, y_pred)
+print (p_score)
+acc_score = accuracy_score(y_test, y_pred)
+print (acc_score)
