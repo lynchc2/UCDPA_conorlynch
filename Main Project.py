@@ -41,6 +41,7 @@ data.drop_duplicates(inplace= True)
 data.drop('Booking_ID',axis=1,inplace=True)
 
 
+
 #Examining distribution of the measures
 def plot_graphs (column):
     """Returns a bar graph of column types counted"""
@@ -66,6 +67,7 @@ plot_columns2 = data[['lead_time','avg_price_per_room','arrival_date','no_of_pre
 
 for i in plot_columns2:
     plot_graphs2(i)
+
 
 
 
@@ -121,7 +123,8 @@ final_results = pd.DataFrame([['Decision Tree Classifier', acc_score, p_score, r
                              columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
 
 c_matrix = confusion_matrix(y_test, y_pred)
-#print (c_matrix)
+print (c_matrix)
+
 
 
 # Random Forest Classifier
@@ -137,7 +140,8 @@ final_results1 = pd.DataFrame([['Random Forest Classifier', acc_score, p_score, 
 final_results1 = final_results.append(final_results1)
 
 c_matrix = confusion_matrix(y_test, y_pred)
-#print (c_matrix)
+print (c_matrix)
+
 
 
 # XGB Classifier
@@ -154,4 +158,4 @@ final_results2 = final_results1.append(final_results2)
 print (final_results2)
 
 c_matrix = confusion_matrix(y_test, y_pred)
-#print (c_matrix)
+print (c_matrix)
