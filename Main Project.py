@@ -50,7 +50,6 @@ plot_columns = data.drop(['booking_status','lead_time','arrival_date','no_of_pre
 #for i in plot_columns:
 #    plot_graphs(i)
 
-
 def plot_graphs2 (column):
     """Returns a histogram of column types counted"""
     sns.histplot(x=column, data=data, hue='booking_status')
@@ -88,48 +87,48 @@ X = pd.DataFrame(X)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.3, random_state=21, stratify=y)
 
+
 # Decision Tree Classifier
-dcc = DecisionTreeClassifier()
+dcc = DecisionTreeClassifier(random_state=21)
 dcc.fit(X_train, y_train)
 y_pred = dcc.predict(X_test)
 
 p_score = precision_score(y_test, y_pred)
-print("Precision Score:", p_score)
 acc_score = accuracy_score(y_test, y_pred)
-print("Accuracy Score:", acc_score)
+r_score = recall_score(y_test, y_pred)
+final_results = pd.DataFrame([['Decision Tree Classifier', acc_score, p_score, r_score]],
+                             columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
+
 c_matrix = confusion_matrix(y_test, y_pred)
-print (c_matrix)
+#print (c_matrix)
 
 # Random Forest Classifier
-rfc = RandomForestClassifier()
+rfc = RandomForestClassifier(random_state=21)
 rfc.fit(X_train, y_train)
 y_pred = rfc.predict(X_test)
 
 p_score = precision_score(y_test, y_pred)
-print ("Precision Score:", p_score)
 acc_score = accuracy_score(y_test, y_pred)
-print ("Accuracy Score:", acc_score)
+r_score = recall_score(y_test, y_pred)
+final_results1 = pd.DataFrame([['Random Forest Classifier', acc_score, p_score, r_score]],
+                              columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
+final_results1 = final_results.append(final_results1)
+
 c_matrix = confusion_matrix(y_test, y_pred)
-print (c_matrix)
+#print (c_matrix)
 
 # XGB Classifier
-xgb = XGBClassifier()
+xgb = XGBClassifier(random_state=21)
 xgb.fit(X_train, y_train)
 y_pred = xgb.predict(X_test)
 
 p_score = precision_score(y_test, y_pred)  # number of true positives over all positive predictions, high means low false +ve rate
-print ("Precision Score:", p_score)
 acc_score = accuracy_score(y_test, y_pred)
-print ("Accuracy Score:", acc_score)
-c_matrix = confusion_matrix(y_test, y_pred)
-print (c_matrix)
-# classification report to summarise multiple accuracy metrics
+r_score = recall_score(y_test, y_pred)
+final_results2 = pd.DataFrame([['XG Boost Classifier', acc_score, p_score, r_score]],
+                              columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
+final_results2 = final_results1.append(final_results2)
+print (final_results2)
 
-#Feature Importance
-sns.set_style('whitegrid')
-sns.set_context('poster')
-sns.set_palette('colorblind')
-sns.set(rc={'figure.figsize':(12,8)})
-sns.barplot(x=rfc.feature_importances_, y=X.columns)
-plt.title('FEATURE IMPORTANCE')
-plt.show()
+c_matrix = confusion_matrix(y_test, y_pred)
+#print (c_matrix)
