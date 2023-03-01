@@ -80,8 +80,18 @@ X = pd.DataFrame(X)
 
 
 # Correlation between different columns
-plt = px.imshow(data.corr(), color_continuous_scale="Reds")
-plt.update_layout(height=800)
+plt.figure(figsize=(10,7))
+sns.heatmap(data.corr().round(2), annot=True, cmap='Blues', xticklabels=1, yticklabels=1)
+plt.show()
+
+# Correlation to booking status
+data.corr()['booking_status'].sort_values(ascending=False).plot(kind='bar')
+plt.xticks(rotation=45, ha='right')
+plt.show()
+
+# Examining lead time & price relation with cancelling
+plt.figure(figsize=(10,7))
+sns.scatterplot(data=data, x='avg_price_per_room', y='lead_time', hue='booking_status')
 plt.show()
 
 
