@@ -17,16 +17,19 @@ from xgboost import XGBClassifier
 
 from sklearn.metrics import precision_score, recall_score, f1_score, classification_report, confusion_matrix, accuracy_score
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 data = pd.read_csv("C:/Users/lynchc2/OneDrive - Paddy Power Betfair/Conor Lynch/UCD Course/Hotel Reservations.csv")
 
-print (data.describe())
-print (data.head())
-print (data.info())
+#print (data.describe())
+#print (data.head())
+#print (data.info())
 
 
 #Checking for NULLs
-print (data.isna().sum())
+#print (data.isna().sum())
 
 
 #Drop duplicate rows
@@ -63,16 +66,6 @@ plot_columns2 = data[['lead_time','avg_price_per_room','arrival_date','no_of_pre
 #    plot_graphs2(i)
 
 
-#Correlation between different columns
-#plt = px.imshow(data.corr(), color_continuous_scale="Reds")
-#plt.update_layout(height=800)
-#plt.show()
-
-#df_corr_bar = data.corr().booking_status.sort_values()[:-1]
-#fig = px.bar(df_corr_bar, orientation="h", color_discrete_sequence=["#AEC6CF"])
-#fig.update_layout(showlegend=False)
-#fig.show()
-
 # Convert and Scale Data
 scaler = LabelEncoder()
 for column in ['type_of_meal_plan', 'room_type_reserved','market_segment_type', 'booking_status']:
@@ -85,6 +78,14 @@ scaler = StandardScaler()
 X = scaler.fit_transform(X)
 X = pd.DataFrame(X)
 
+
+# Correlation between different columns
+plt = px.imshow(data.corr(), color_continuous_scale="Reds")
+plt.update_layout(height=800)
+plt.show()
+
+
+# Train Test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.3, random_state=21, stratify=y)
 
 
@@ -128,7 +129,7 @@ r_score = recall_score(y_test, y_pred)
 final_results2 = pd.DataFrame([['XG Boost Classifier', acc_score, p_score, r_score]],
                               columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
 final_results2 = final_results1.append(final_results2)
-print (final_results2)
+#print (final_results2)
 
 c_matrix = confusion_matrix(y_test, y_pred)
 #print (c_matrix)
