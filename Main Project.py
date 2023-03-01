@@ -82,6 +82,7 @@ X = pd.DataFrame(X)
 # Correlation between different columns
 plt.figure(figsize=(10,7))
 sns.heatmap(data.corr().round(2), annot=True, cmap='Blues', xticklabels=1, yticklabels=1)
+#sns.set_xticklabels(sns.get_xticklabels(), rotation=45, horizontalalignment='right')
 plt.show()
 
 # Correlation to booking status
