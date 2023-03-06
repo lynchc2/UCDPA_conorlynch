@@ -24,32 +24,33 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 data = pd.read_csv("C:/Users/lynchc2/OneDrive - Paddy Power Betfair/Conor Lynch/UCD Course/Hotel Reservations.csv")
 
 
+# Basic EDA
 print (data.describe())
 print (data.head())
 print (data.info())
 
 
-#Checking for NULLs
+# Checking for NULLs
 print (data.isna().sum())
 
 
-#Drop duplicate rows
+# Drop duplicate rows
 data.drop_duplicates(inplace= True)
 
 
-#Dropping Booking_Id column
+# Dropping Booking_Id column as irrelevant
 data.drop('Booking_ID',axis=1,inplace=True)
 
 
 
-#Examining distribution of the measures
+# Examining distribution of the measures
 def plot_graphs (column):
     """Returns a bar graph of column types counted"""
     sns.countplot(x=column, data=data, hue='booking_status')
     plt.ylabel('Number of Reservations')
     plt.show()
 
-#Dropping some columns as it doesnt make sense in plots (continuos?)
+#Dropping some columns as it doesnt make sense in bar plots as they are continuos
 plot_columns = data.drop(['booking_status','lead_time','arrival_date','no_of_previous_bookings_not_canceled','avg_price_per_room'],axis=1)
 
 for i in plot_columns:
@@ -70,11 +71,10 @@ for i in plot_columns2:
 
 
 
-
 # Convert and Scale Data
-scaler = LabelEncoder()
+convert = LabelEncoder()
 for column in ['type_of_meal_plan', 'room_type_reserved','market_segment_type', 'booking_status']:
-    data[column] = scaler.fit_transform(data[column])
+    data[column] = convert.fit_transform(data[column])
 
 y = data['booking_status']
 X = data.drop(['booking_status'],axis= 1)
@@ -99,7 +99,7 @@ plt.xticks(rotation=45, ha='right')
 plt.show()
 
 
-# Examining lead time & price relation with cancelling
+# Examining lead time & price relation with cancelling (chosing as these are two of the biggest determining factors on booking status)
 plt.figure(figsize=(10,7))
 sns.scatterplot(data=data, x='avg_price_per_room', y='lead_time', hue='booking_status')
 plt.show()

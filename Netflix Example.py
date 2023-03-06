@@ -21,13 +21,13 @@ df.drop_duplicates(inplace= True)
 print (df.isna().sum().sort_values(ascending=False))
 
 
-#Drop tmdb column as unsure what it is
+#Drop tmdb column
 df=df.drop('tmdb_score',axis=1)
 print (df.head())
 
 
-#Regex and function to find patterns, update to sentiment analysis??
-regex = (r'\d+')
+#Regex and function to find patterns
+regex = (r'\d{4}')  ## just including this to demonstrate how I would of extracted titles containing years/ 4 digits
 regex1 = (r'Cowboy|cowboy')
 regex2 = (r'Football|football')
 description_list = df['description'].astype(str)
