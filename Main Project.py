@@ -53,8 +53,8 @@ def plot_graphs (column):
 #Dropping some columns as it doesnt make sense in bar plots as they are continuos
 plot_columns = data.drop(['booking_status','lead_time','arrival_date','no_of_previous_bookings_not_canceled','avg_price_per_room'],axis=1)
 
-for i in plot_columns:
-    plot_graphs(i)
+#for i in plot_columns:
+ #   plot_graphs(i)
 
 
 def plot_graphs2 (column):
@@ -66,14 +66,15 @@ def plot_graphs2 (column):
 #Only looking at columns dropped from previous plots
 plot_columns2 = data[['lead_time','avg_price_per_room','arrival_date','no_of_previous_bookings_not_canceled']]
 
-for i in plot_columns2:
-    plot_graphs2(i)
+#for i in plot_columns2:
+ #   plot_graphs2(i)
 
 
 
-# Examining lead time & price relation with cancelling (chosing as these are two of the biggest determining factors on booking status)
+# Examining lead time & price relation with cancelling (chosing as these are two of the biggest
+# negative determining factors on booking status)
 plt.figure(figsize=(10,7))
-sns.scatterplot(data=data, x= 'lead_time',  y='avg_price_per_room', hue='booking_status')
+sns.scatterplot(data=data, x='avg_price_per_room',  y='lead_time', hue='booking_status')
 plt.show()
 
 
