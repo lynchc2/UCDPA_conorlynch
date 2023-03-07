@@ -71,6 +71,13 @@ for i in plot_columns2:
 
 
 
+# Examining lead time & price relation with cancelling (chosing as these are two of the biggest determining factors on booking status)
+plt.figure(figsize=(10,7))
+sns.scatterplot(data=data, x= 'lead_time',  y='avg_price_per_room', hue='booking_status')
+plt.show()
+
+
+
 # Convert and Scale Data
 convert = LabelEncoder()
 for column in ['type_of_meal_plan', 'room_type_reserved','market_segment_type', 'booking_status']:
@@ -85,10 +92,9 @@ X = pd.DataFrame(X)
 
 
 
-# Correlation between different columns
+# Correlation between features
 plt.figure(figsize=(10,7))
 sns.heatmap(data.corr().round(2), annot=True, cmap='Blues', xticklabels=1, yticklabels=1)
-#sns.set_xticklabels(sns.get_xticklabels(), rotation=45, horizontalalignment='right')
 plt.show()
 
 
@@ -96,12 +102,6 @@ plt.show()
 plt.figure(figsize=(10,7))
 data.corr()['booking_status'].sort_values(ascending=False).plot(kind='bar')
 plt.xticks(rotation=45, ha='right')
-plt.show()
-
-
-# Examining lead time & price relation with cancelling (chosing as these are two of the biggest determining factors on booking status)
-plt.figure(figsize=(10,7))
-sns.scatterplot(data=data, x='avg_price_per_room', y='lead_time', hue='booking_status')
 plt.show()
 
 
