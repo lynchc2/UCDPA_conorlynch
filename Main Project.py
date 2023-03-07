@@ -44,6 +44,9 @@ data.drop('Booking_ID',axis=1,inplace=True)
 
 
 # Examining distribution of the measures
+sns.countplot(x='booking_status', data=data)
+plt.show()
+
 def plot_graphs (column):
     """Returns a bar graph of column types counted"""
     sns.countplot(x=column, data=data, hue='booking_status')
