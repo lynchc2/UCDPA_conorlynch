@@ -127,6 +127,7 @@ final_results = pd.DataFrame([['Decision Tree Classifier', acc_score, p_score, r
                              columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
 
 c_matrix = confusion_matrix(y_test, y_pred)
+print ("Decision Tree Classifier Confusion Matrix")
 print (c_matrix)
 
 
@@ -144,6 +145,7 @@ final_results1 = pd.DataFrame([['Random Forest Classifier', acc_score, p_score, 
 final_results1 = final_results.append(final_results1)
 
 c_matrix = confusion_matrix(y_test, y_pred)
+print ("Random Forest Confusion Matrix")
 print (c_matrix)
 
 
@@ -153,13 +155,17 @@ xgb = XGBClassifier(random_state=21)
 xgb.fit(X_train, y_train)
 y_pred = xgb.predict(X_test)
 
-p_score = precision_score(y_test, y_pred)  # number of true positives over all positive predictions, high means low false +ve rate
+p_score = precision_score(y_test, y_pred)
 acc_score = accuracy_score(y_test, y_pred)
 r_score = recall_score(y_test, y_pred)
 final_results2 = pd.DataFrame([['XG Boost Classifier', acc_score, p_score, r_score]],
                               columns=['Model', 'Accuracy Score', 'Precision Score', 'Recall Score'])
 final_results2 = final_results1.append(final_results2)
-print (final_results2)
 
 c_matrix = confusion_matrix(y_test, y_pred)
-print (c_matrix)
+print ("XG Boost Confusion Matrix")
+print(c_matrix)
+
+print (final_results2)
+
+
