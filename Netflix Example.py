@@ -60,12 +60,12 @@ for element in titles1:
     if len(element) >= 50:
         print(element)
 
-#Stopping the list once the movie character length drops below 10
+#Stopping a list once the movie character length drops below 10
 for element in titles1:
     if len(element) >= 10:
         print(element)
     else:
-        print ('Next Movie Is Under 10 Characters!!')
+        print ('!!! Next Movie Is Under 10 Characters !!!')
         break
 
 
@@ -77,10 +77,7 @@ new_df = titles.merge(descriptions, on='id')
 print (new_df.head())
 
 
-#NumPy picking out all highly rated films
-arr = np.array(df['age_certification'])
-print (np.where(arr == 'PG'))
-
+#NumPy picking highly rated films, IMDB score > 9
 arr2 = np.array(df['imdb_score'])
 arr3 = np.array(df['title'])
 filter_arr = []
@@ -92,7 +89,6 @@ for i in arr2:
         filter_arr.append(False)
 
 new_arr = arr3[filter_arr]
-print (filter_arr)
 print (new_arr)
 
 
