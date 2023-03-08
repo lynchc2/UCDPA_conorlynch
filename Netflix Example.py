@@ -18,12 +18,10 @@ df['title'].replace(np.nan, 'No Data',inplace  = True)
 
 #Drop duplicate rows
 df.drop_duplicates(inplace= True)
-print (df.isna().sum().sort_values(ascending=False))
 
 
 #Drop tmdb column
 df=df.drop('tmdb_score',axis=1)
-print (df.head())
 
 
 #Regex and function to find patterns
